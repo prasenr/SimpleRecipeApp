@@ -10,4 +10,7 @@
 
 @interface RecipeDetailViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *recipeLabel;
+@property (nonatomic, strong) NSString *recipeName;
+
 @end

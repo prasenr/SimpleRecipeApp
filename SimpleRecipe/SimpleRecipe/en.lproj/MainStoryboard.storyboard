@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--Recipe Book View Controller-->
+        <!--Recipe Book View Controller - Recipes-->
         <scene sceneID="5">
             <objects>
                 <viewController id="2" customClass="RecipeBookViewController" sceneMemberID="viewController">
@@ -23,7 +23,7 @@
                                     </connections>
                                 </searchBar>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="lFO-gI-Btg">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RecipeCell" id="lFO-gI-Btg">
                                         <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -32,10 +32,14 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <segue destination="Ucw-CG-B1U" kind="push" id="FCD-UB-Dz2"/>
+                                            <segue destination="Ucw-CG-B1U" kind="push" identifier="showRecipeDetail" id="FCD-UB-Dz2"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2" id="ftx-X7-uRq"/>
+                                    <outlet property="delegate" destination="2" id="DfV-yB-GuM"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -46,9 +50,10 @@
                             <constraint firstItem="wd4-kk-ZDB" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="qml-L0-SX0"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="XDo-Bd-3Di"/>
+                    <navigationItem key="navigationItem" title="Recipes" id="XDo-Bd-3Di"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="Jfl-hn-Vxc" id="lJf-Eo-Yhu"/>
+                        <outlet property="tableView" destination="wd4-kk-ZDB" id="2j6-Gc-LHm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -64,11 +69,11 @@
             </objects>
             <point key="canvasLocation" x="1190" y="145"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller-->
         <scene sceneID="t0i-w7-L76">
             <objects>
                 <navigationController definesPresentationContext="YES" id="3cv-cX-HoK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="XGo-NH-XGz"/>
+                    <tabBarItem key="tabBarItem" systemItem="more" id="XGo-NH-XGz"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="43W-oH-d0i">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -102,19 +107,36 @@
                     <view key="view" contentMode="scaleToFill" id="tNx-Vd-TmJ">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SkP-f2-570">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="182" id="enT-vr-2Qb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="SkP-f2-570" firstAttribute="leading" secondItem="tNx-Vd-TmJ" secondAttribute="leading" constant="62" id="Ora-1e-prF"/>
+                            <constraint firstItem="SkP-f2-570" firstAttribute="top" secondItem="tNx-Vd-TmJ" secondAttribute="top" constant="152" id="qFr-1y-bya"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="WVT-Bp-ueP"/>
+                    <connections>
+                        <outlet property="recipeLabel" destination="SkP-f2-570" id="JIN-a2-hmd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I5q-gc-hcP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1572" y="140"/>
         </scene>
-        <!--Navigation Controller - Featured-->
+        <!--Navigation Controller-->
         <scene sceneID="BWW-sv-9ib">
             <objects>
                 <navigationController id="To9-Qy-iEK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Featured" id="XfP-Fc-ebV"/>
+                    <tabBarItem key="tabBarItem" systemItem="featured" id="XfP-Fc-ebV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rzF-Xx-Cgf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -159,11 +181,14 @@
         <class className="RecipeBookViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RecipeBookViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="tableview" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="RecipeDetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RecipeDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="recipeLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

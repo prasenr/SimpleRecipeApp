@@ -20,6 +20,7 @@
 		67ACE889183A261000219F2D /* RecipeBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ACE888183A261000219F2D /* RecipeBookViewController.m */; };
 		67ACE891183A2D5900219F2D /* RecipeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ACE890183A2D5900219F2D /* RecipeDetailViewController.m */; };
 		67ACE894183A2D8400219F2D /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ACE893183A2D8400219F2D /* AboutViewController.m */; };
+		67ACE896183A373D00219F2D /* Recipes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67ACE895183A373D00219F2D /* Recipes.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		67ACE890183A2D5900219F2D /* RecipeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDetailViewController.m; sourceTree = "<group>"; };
 		67ACE892183A2D8400219F2D /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		67ACE893183A2D8400219F2D /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		67ACE895183A373D00219F2D /* Recipes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Recipes.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				67ACE873183A260F00219F2D /* Supporting Files */,
 				67ACE892183A2D8400219F2D /* AboutViewController.h */,
 				67ACE893183A2D8400219F2D /* AboutViewController.m */,
+				67ACE895183A373D00219F2D /* Recipes.plist */,
 			);
 			path = SimpleRecipe;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 				67ACE881183A261000219F2D /* Default@2x.png in Resources */,
 				67ACE883183A261000219F2D /* Default-568h@2x.png in Resources */,
 				67ACE886183A261000219F2D /* MainStoryboard.storyboard in Resources */,
+				67ACE896183A373D00219F2D /* Recipes.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
