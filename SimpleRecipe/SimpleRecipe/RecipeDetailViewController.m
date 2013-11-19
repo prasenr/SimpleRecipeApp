@@ -13,7 +13,7 @@
 @end
 
 @implementation RecipeDetailViewController
-@synthesize recipeLabel,recipeName;
+@synthesize ingredientTextView,prepTimeLabel,recipePhoto,recipe;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,7 +28,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    recipeLabel.text = recipeName;
+    
+    self.title = recipe.name;
+    self.prepTimeLabel.text = recipe.prepTime;
+    self.recipePhoto.image = [UIImage imageNamed:recipe.imageFile];
+    
+    NSMutableString *ingredientText = [NSMutableString string];
+    for (NSString* ingredient in recipe.ingredients) {
+        [ingredientText appendFormat:@"%@\n",ingredient];
+    }
+    self.ingredientTextView.text = ingredientText;
+    
 }
 
 - (void)didReceiveMemoryWarning

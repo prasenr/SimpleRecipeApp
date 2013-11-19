@@ -13,8 +13,9 @@
 @end
 
 @implementation RecipeBookViewController{
-    NSArray *recipes;
+    NSArray *recipeNames,*prepTime, *imageNames, *ingredients;
     NSArray *searchResults;
+    NSMutableArray *recipes;
 }
 
 @synthesize tableView = _tableView;
@@ -28,7 +29,21 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Recipes" ofType:@"plist"];
     // Load the file content and read the data into arrays
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    recipes = [dict objectForKey:@"RecipeName"];
+//    recipeNames = [dict objectForKey:@"RecipeName"];
+//    imageNames = [dict objectForKey:@"Thumbnail"];
+//    prepTime = [dict objectForKey:@"PrepTime"];
+//    ingredients = [dict objectForKey:@"Ingredients"];
+    
+    recipes = [[NSMutableArray alloc]init];
+    for (int i = 0; i < 16; i++)
+    {
+        Recipe *recipe = [Recipe new];
+        recipe.name         = [[dict objectForKey:@"RecipeName"] objectAtIndex:i];
+        recipe.prepTime     = [[dict objectForKey:@"PrepTime"] objectAtIndex:i];
+        recipe.ingredients  = [[dict objectForKey:@"Ingredients"] objectAtIndex:i];
+        recipe.imageFile    = [[dict objectForKey:@"Thumbnail"] objectAtIndex:i];
+        [recipes addObject:recipe];
+    }
 }
 
 - (void)didReceiveMemoryWarning{
@@ -60,7 +75,16 @@
         cell.textLabel.text = [searchResults objectAtIndex:indexPath.row];
     }
     else{
-        cell.textLabel.text = [recipes objectAtIndex:indexPath.row];
+//        cell.textLabel.text = [recipeNames objectAtIndex:indexPath.row];
+        Recipe *recipe = [recipes objectAtIndex:indexPath.row];
+        UIImageView *recipeImageView = (UIImageView *)[cell viewWithTag:100];
+        recipeImageView.image = [UIImage imageNamed:recipe.imageFile];
+        
+        UILabel *recipeNameLabel = (UILabel *)[cell viewWithTag:101];
+        recipeNameLabel.text = recipe.name;
+        
+        UILabel *recipeDetailLabel = (UILabel *)[cell viewWithTag:102];
+        recipeDetailLabel.text = recipe.prepTime;
     }
     
     return cell;
@@ -80,11 +104,11 @@
         
         if([self.searchDisplayController isActive]){
             indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-            destViewController.recipeName = [searchResults objectAtIndex:indexPath.row];
+            destViewController.recipe = [searchResults objectAtIndex:indexPath.row];
         }
         else{
             indexPath = [self.tableView indexPathForSelectedRow];
-            destViewController.recipeName = [recipes objectAtIndex:indexPath.row];
+            destViewController.recipe = [recipes objectAtIndex:indexPath.row];
         }
     }
     
