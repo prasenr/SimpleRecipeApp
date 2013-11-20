@@ -10,7 +10,7 @@
 #import "RecipeDetailViewController.h"
 #import "Recipe.h"
 
-@interface RecipeBookViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface RecipeBookViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchDisplayDelegate,UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

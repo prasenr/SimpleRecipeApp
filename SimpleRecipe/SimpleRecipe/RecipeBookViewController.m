@@ -14,8 +14,7 @@
 
 @implementation RecipeBookViewController{
     NSArray *recipeNames,*prepTime, *imageNames, *ingredients;
-    NSArray *searchResults;
-    NSMutableArray *recipes;
+    NSMutableArray *recipes,*searchResults;
 }
 
 @synthesize tableView = _tableView;
@@ -29,12 +28,13 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Recipes" ofType:@"plist"];
     // Load the file content and read the data into arrays
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-//    recipeNames = [dict objectForKey:@"RecipeName"];
+    recipeNames = [dict objectForKey:@"RecipeName"];
 //    imageNames = [dict objectForKey:@"Thumbnail"];
 //    prepTime = [dict objectForKey:@"PrepTime"];
 //    ingredients = [dict objectForKey:@"Ingredients"];
     
     recipes = [[NSMutableArray alloc]init];
+    searchResults = [[NSMutableArray alloc]init];
     for (int i = 0; i < 16; i++)
     {
         Recipe *recipe = [Recipe new];
@@ -44,6 +44,7 @@
         recipe.imageFile    = [[dict objectForKey:@"Thumbnail"] objectAtIndex:i];
         [recipes addObject:recipe];
     }
+    searchResults = [NSMutableArray arrayWithCapacity:[recipes count]];
 }
 
 - (void)didReceiveMemoryWarning{
@@ -63,20 +64,25 @@
     
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 71;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *simpleTableIdentifier = @"RecipeCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    
+    Recipe *recipe = [Recipe new];
     if(tableView == self.searchDisplayController.searchResultsTableView){
-        cell.textLabel.text = [searchResults objectAtIndex:indexPath.row];
+        recipe = [searchResults objectAtIndex:indexPath.row];
     }
     else{
 //        cell.textLabel.text = [recipeNames objectAtIndex:indexPath.row];
-        Recipe *recipe = [recipes objectAtIndex:indexPath.row];
+        recipe = [recipes objectAtIndex:indexPath.row];
+    }
         UIImageView *recipeImageView = (UIImageView *)[cell viewWithTag:100];
         recipeImageView.image = [UIImage imageNamed:recipe.imageFile];
         
@@ -85,7 +91,6 @@
         
         UILabel *recipeDetailLabel = (UILabel *)[cell viewWithTag:102];
         recipeDetailLabel.text = recipe.prepTime;
-    }
     
     return cell;
 }
@@ -104,20 +109,20 @@
         
         if([self.searchDisplayController isActive]){
             indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-            destViewController.recipe = [searchResults objectAtIndex:indexPath.row];
         }
         else{
             indexPath = [self.tableView indexPathForSelectedRow];
-            destViewController.recipe = [recipes objectAtIndex:indexPath.row];
         }
+        destViewController.recipe = [recipes objectAtIndex:indexPath.row];
     }
     
 }
 
 -(void)filteredContentForSearchText:(NSString *)searchText  scope:(NSString*)scope{
+    [searchResults removeAllObjects];
     NSPredicate *resultPredicate = [NSPredicate
-                                    predicateWithFormat:@"SELF Contains[cd] %@",searchText];
-    searchResults = [recipes filteredArrayUsingPredicate:resultPredicate];
+                                    predicateWithFormat:@"SELF.name Contains[cd] %@",searchText];
+    searchResults = [NSMutableArray arrayWithArray:[recipes filteredArrayUsingPredicate:resultPredicate]];
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods
@@ -129,5 +134,7 @@
                                                        selectedScopeButtonIndex]]];
     return YES;
 }
+
+
 
 @end
