@@ -95,25 +95,21 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(tableView == self.searchDisplayController.searchResultsTableView){
-        [self performSegueWithIdentifier:@"showRecipeDetail" sender:self];
-    }
-}
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"showRecipeDetail"]){
         RecipeDetailViewController *destViewController = segue.destinationViewController;
         
         NSIndexPath *indexPath = nil;
-        
-        if([self.searchDisplayController isActive]){
+        if(sender == self.searchDisplayController.searchResultsTableView) {
+//        if([self.searchDisplayController isActive]){
             indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+            destViewController.recipe = [recipes objectAtIndex:indexPath.row];
         }
         else{
             indexPath = [self.tableView indexPathForSelectedRow];
+            destViewController.recipe = [recipes objectAtIndex:indexPath.row];
         }
-        destViewController.recipe = [recipes objectAtIndex:indexPath.row];
+        
     }
     
 }
