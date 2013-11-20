@@ -13,7 +13,6 @@
 @end
 
 @implementation RecipeBookViewController{
-    NSArray *recipeNames,*prepTime, *imageNames, *ingredients;
     NSMutableArray *recipes,*searchResults;
 }
 
@@ -22,16 +21,11 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-//    recipes = [NSArray arrayWithObjects:@"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut", @"Starbucks Coffee", @"Vegetable Curry", @"Instant Noodle with Egg", @"Noodle with BBQ Pork", @"Japanese Noodle with Pork", @"Green Tea", @"Thai Shrimp Cake", @"Angry Birds Cake", @"Ham and Cheese Panini", nil];
-    
+
     // Find out the path of Recipes.plist
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Recipes" ofType:@"plist"];
     // Load the file content and read the data into arrays
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-    recipeNames = [dict objectForKey:@"RecipeName"];
-//    imageNames = [dict objectForKey:@"Thumbnail"];
-//    prepTime = [dict objectForKey:@"PrepTime"];
-//    ingredients = [dict objectForKey:@"Ingredients"];
     
     recipes = [[NSMutableArray alloc]init];
     searchResults = [[NSMutableArray alloc]init];
@@ -45,6 +39,14 @@
         [recipes addObject:recipe];
     }
     searchResults = [NSMutableArray arrayWithCapacity:[recipes count]];
+    
+    //TableView Styling
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.parentViewController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"common_bg"]];
+    self.tableView.backgroundColor = [UIColor clearColor];
+    UIEdgeInsets inset = UIEdgeInsetsMake(5, 0, 0, 0);
+    self.tableView.contentInset = inset;
+
 }
 
 - (void)didReceiveMemoryWarning{
@@ -80,19 +82,44 @@
         recipe = [searchResults objectAtIndex:indexPath.row];
     }
     else{
-//        cell.textLabel.text = [recipeNames objectAtIndex:indexPath.row];
         recipe = [recipes objectAtIndex:indexPath.row];
     }
-        UIImageView *recipeImageView = (UIImageView *)[cell viewWithTag:100];
-        recipeImageView.image = [UIImage imageNamed:recipe.imageFile];
-        
-        UILabel *recipeNameLabel = (UILabel *)[cell viewWithTag:101];
-        recipeNameLabel.text = recipe.name;
-        
-        UILabel *recipeDetailLabel = (UILabel *)[cell viewWithTag:102];
-        recipeDetailLabel.text = recipe.prepTime;
+
+    // Assign our own background image for the cell
+    UIImage *background = [self cellBackgroundForRowAtIndexPath:indexPath];
+    
+    UIImageView *cellBackgroundView = [[UIImageView alloc] initWithImage:background];
+    cellBackgroundView.image = background;
+    cell.backgroundView = cellBackgroundView;
+    
+    // Assign Recipe Object values to Cell components 
+    UIImageView *recipeImageView = (UIImageView *)[cell viewWithTag:100];
+    recipeImageView.image = [UIImage imageNamed:recipe.imageFile];
+    
+    UILabel *recipeNameLabel = (UILabel *)[cell viewWithTag:101];
+    recipeNameLabel.text = recipe.name;
+    
+    UILabel *recipeDetailLabel = (UILabel *)[cell viewWithTag:102];
+    recipeDetailLabel.text = recipe.prepTime;
     
     return cell;
+}
+
+- (UIImage *)cellBackgroundForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger rowCount = [self tableView:[self tableView] numberOfRowsInSection:0];
+    NSInteger rowIndex = indexPath.row;
+    UIImage *background = nil;
+    
+    if (rowIndex == 0) {
+        background = [UIImage imageNamed:@"cell_top.png"];
+    } else if (rowIndex == rowCount - 1) {
+        background = [UIImage imageNamed:@"cell_bottom.png"];
+    } else {
+        background = [UIImage imageNamed:@"cell_middle.png"];
+    }
+    
+    return background;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

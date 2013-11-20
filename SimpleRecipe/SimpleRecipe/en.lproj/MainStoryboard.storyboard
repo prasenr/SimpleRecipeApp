@@ -12,19 +12,20 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="61" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="wd4-kk-ZDB">
+                            <searchBar contentMode="redraw" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="Pcm-KM-MyO">
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="2" id="l8c-sc-3mR"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="61" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="wd4-kk-ZDB">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" id="Pcm-KM-MyO">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                    <connections>
-                                        <outlet property="delegate" destination="2" id="l8c-sc-3mR"/>
-                                    </connections>
-                                </searchBar>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="367" id="9HJ-Ar-z30"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RecipeCell" rowHeight="71" id="lFO-gI-Btg">
-                                        <rect key="frame" x="0.0" y="66" width="320" height="71"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="70"/>
@@ -75,9 +76,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wd4-kk-ZDB" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="LLr-N0-An7"/>
+                            <constraint firstItem="wd4-kk-ZDB" firstAttribute="top" secondItem="Pcm-KM-MyO" secondAttribute="bottom" type="default" id="5WC-MC-r1t"/>
+                            <constraint firstItem="Pcm-KM-MyO" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="MeU-6D-CrY"/>
+                            <constraint firstItem="Pcm-KM-MyO" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="Ndx-nN-mNt"/>
                             <constraint firstItem="wd4-kk-ZDB" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="Ph7-wh-XUi"/>
-                            <constraint firstItem="wd4-kk-ZDB" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="bqt-QK-jmf"/>
+                            <constraint firstItem="Pcm-KM-MyO" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="SpY-26-ZYT"/>
                             <constraint firstItem="wd4-kk-ZDB" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="qml-L0-SX0"/>
                         </constraints>
                     </view>
@@ -116,7 +119,7 @@
             </objects>
             <point key="canvasLocation" x="777" y="826"/>
         </scene>
-        <!--About View Controller-->
+        <!--About View Controller - About-->
         <scene sceneID="z57-xA-6BG">
             <objects>
                 <viewController id="5hb-cT-Bkl" customClass="AboutViewController" sceneMemberID="viewController">
@@ -136,7 +139,7 @@
                             <constraint firstItem="O4g-op-12y" firstAttribute="top" secondItem="Mcd-wH-UQe" secondAttribute="top" type="default" id="VXt-Tt-LFJ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="gV8-Bc-J4A"/>
+                    <navigationItem key="navigationItem" title="About" id="gV8-Bc-J4A"/>
                     <connections>
                         <outlet property="webView" destination="O4g-op-12y" id="NW8-sz-Kd9"/>
                     </connections>
@@ -256,6 +259,31 @@
     <resources>
         <image name="photo-frame.png" width="297" height="199"/>
     </resources>
+    <classes>
+        <class className="AboutViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="RecipeBookViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecipeBookViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="RecipeDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecipeDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="ingredientTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="prepTimeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="recipePhoto" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
