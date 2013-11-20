@@ -5,5 +5,5 @@ This is Simple iOS Application with StoryBoard, Tabbar, UIWebView, PropertyList 
 
 Screenshots:
 
-![alt tag](https://github.com/prasen-ftech/SimpleRecipeApp/blob/master/Screenshots/Home.png) ![alt tag](https://github.com/prasen-ftech/SimpleRecipeApp/blob/master/Screenshots/RecipeDetail.png) ![alt tag](https://github.com/prasen-ftech/SimpleRecipeApp/blob/master/Screenshots/Search.png)
+![alt tag](https://raw.github.com/prasen-ftech/SimpleRecipeApp/master/Screenshots/Home.png) ![alt tag](https://raw.github.com/prasen-ftech/SimpleRecipeApp/master/Screenshots/RecipeDetail.png) ![alt tag](https://raw.github.com/prasen-ftech/SimpleRecipeApp/master/Screenshots/Home.png)
 
